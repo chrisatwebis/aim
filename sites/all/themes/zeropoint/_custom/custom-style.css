@@ -397,6 +397,9 @@ td.section.divider
     display: inline-block;
     font-weight: bold;
 }
+#block-quicktabs-stay_connected .quicktabs_tabs li.active a {
+    text-decoration: underline;
+}
 #block-quicktabs-stay_connected #quicktabs_container_stay_connected{
 
 }
