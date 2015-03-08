@@ -5,9 +5,9 @@ dependencies[] = token
 package = Mail
 core = 6.x
 
-; Information added by drupal.org packaging script on 2013-10-16
-version = "6.x-2.0-alpha6+0-dev"
+; Information added by Drupal.org packaging script on 2015-02-27
+version = "6.x-2.0-alpha6+1-dev"
 core = "6.x"
 project = "simplenews"
-datestamp = "1381952786"
+datestamp = "1425080294"
 

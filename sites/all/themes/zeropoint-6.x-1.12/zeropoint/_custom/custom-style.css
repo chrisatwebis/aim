@@ -321,7 +321,7 @@ table p
 {
 	background: url("../images/module_bg.jpg") no-repeat scroll 0 0 transparent;
     clear: both;
-    height: 233px;
+    height: 350px;
     margin: 0px auto 0;
     width: 900px;
 }
@@ -338,7 +338,7 @@ td.section.u5
 	width:397px;
 }
 td.section.u6 {
-    width: 232px;
+    min-width: 232px;
 }
 #section2 .block .title {
     font-size: 16px;
@@ -376,6 +376,31 @@ td.section.divider
 	color: #1ED1CE !important;
 	text-decoration:none !important;
 }
+
+
+#block-quicktabs-stay_connected {
+}
+#block-quicktabs-stay_connected .block-wrapper .content {
+    padding: 0px;
+}
+#block-quicktabs-stay_connected .quicktabs_tabs {
+    padding: 0px;
+}
+#block-quicktabs-stay_connected .quicktabs_tabs li{
+    color: #4C545F;
+    font-family: Arial;
+    font-size: 16px;
+    line-height: 22px;
+    margin: 0;
+    padding: 10px 20px 5px 10px;
+    text-transform: none;
+    display: inline-block;
+    font-weight: bold;
+}
+#block-quicktabs-stay_connected #quicktabs_container_stay_connected{
+
+}
+
 
 /*
 *	New Patients block
