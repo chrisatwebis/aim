@@ -1,0 +1,113 @@
+<?php
+	
+	/*
+	 * Implemetation of hook_init
+	 * */
+	function site_helper_init()
+	{
+		
+		drupal_add_css(drupal_get_path('module', 'site_helper') .'/site_helper.css');
+		
+ 	}
+
+	/**
+	* Implementation of hook_webform_select_options_info().
+	* See webform/webform_hooks.php for further information on this hook in the Webform API.
+	*/
+	function site_helper_webform_select_options_info() {
+	  $items = array();
+	  $items['available_neighbourhoods'] = array(
+		'title' => t('Current available Neighbourhoods'),
+		'options callback' => 'site_helper_options_available_neighbourhood'
+	  );
+	  return $items;
+	}
+
+	/**
+	* Build an options list for use by webforms.
+	*/
+	function site_helper_options_available_neighbourhood() {
+		$options = array();
+		$results = db_query("SELECT nid, title FROM {node} WHERE type = '%s'", "neighbourhood");
+		while ($node = db_fetch_object($results)) {
+			// take a looksie at what we've got
+			$options[$node->title] = $node->title;
+		}
+		return $options;
+	}
+	
+	/**
+	* Build an options list for property filtering.
+	*/
+	function site_helper_form_alter(&$form, &$form_state, $form_id) 
+	{	
+		//var_dump($form_id);
+		switch ($form_id) {
+			case 'views_exposed_form' :
+			if ($form_state['view']->name == 'property_list' && ( $form_state['view']->current_display == 'page_2' || $form_state['view']->current_display == 'page_1' )) {
+				//$form['submit']['#value'] = t('Search Property');
+				$from_options = array(
+					'' => t('0'),
+					'500' => t('$500'),
+					'800' => t('$800'),
+					'1100' => t('$1,100'),
+					'1400' => t('$1,400'),
+					'1700' => t('$1,700'),
+					'2000' => t('$2,000'),
+					'2300' => t('$2,300'),
+					'2600' => t('$2,600'),
+					'2900' => t('$2,900'),
+					'3200' => t('$3,200'),
+					'3500' => t('$3,500'),
+				);
+				$to_options = array(
+					'' => t('Unlimited'),
+					'500' => t('$500'),
+					'800' => t('$800'),
+					'1100' => t('$1,100'),
+					'1400' => t('$1,400'),
+					'1700' => t('$1,700'),
+					'2000' => t('$2,000'),
+					'2300' => t('$2,300'),
+					'2600' => t('$2,600'),
+					'2900' => t('$2,900'),
+					'3200' => t('$3,200'),
+					'3500' => t('$3,500'),
+					'3800' => t('$3,800'),
+				);
+				$form['min_price'] = array (
+					'#type' => 'select',
+					'#multiple' => false,
+					'#required' => false,
+					'#options' => $from_options,
+					'#default_value' => '500',
+				);    
+				$form['max_price'] = array (
+					'#type' => 'select',
+					'#multiple' => false,
+					'#required' => false,
+					'#options' => $to_options,
+					'#default_value' => '7000',
+				);
+				foreach($form as $fl => &$fd)
+				{
+					
+					if( isset($fd["#type"]) && $fd["#type"]=='select' && isset($fd["#options"]["All"]))
+					{
+						$fd["#options"]["All"] = "All";
+
+					}
+				}
+
+			}
+			break;
+			case 'webform_client_form_146':
+			case 'webform_client_form_151':
+			$form['actions']['reset'] = array(
+				'#value' => '<input class="form-submit form-reset-button" type="reset" value=" Clear " />',
+				'#weight' => 1001,
+			);
+			break;
+		}
+		
+	}
